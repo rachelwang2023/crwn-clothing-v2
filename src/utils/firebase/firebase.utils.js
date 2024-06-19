@@ -58,6 +58,8 @@ export const addCollectionAndDocuments = async(collectionKey,  objectsToAdd) => 
   });
   await batch.commit();
   console.log('done!');
+  console.log(firebaseApp.name);  // Logs the default app's name
+
 
 }
 
