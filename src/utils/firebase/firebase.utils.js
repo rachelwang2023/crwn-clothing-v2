@@ -6,7 +6,6 @@ import {
   onAuthStateChanged
 
 } from 'firebase/auth'
-
 import {
     getFirestore,
     doc,
@@ -33,18 +32,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
     prompt : 'select_account'
 });
 
-
-
 export const auth = getAuth();
-export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
-
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
+export const signInWithGooglePopUp = () => signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
@@ -56,6 +52,7 @@ export const addCollectionAndDocuments = async(collectionKey,  objectsToAdd) => 
     const docRef = doc(collectionRef, object.title.toLowerCase() );
     batch.set(docRef, object);
   });
+  
   await batch.commit();
   console.log('done!');
   console.log(firebaseApp.name);  // Logs the default app's name
@@ -102,12 +99,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
     console.warn(`User ${userAuth.email} (${userAuth.displayName}) already exists`);
 
    }
-  // if user data exists
 
-  // if user data 
-
-
-  //return userDataRef
 };
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
