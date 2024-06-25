@@ -16,8 +16,6 @@ import {
     query,
     getDocs
 } from 'firebase/firestore'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -31,7 +29,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-
+console.log(firebaseApp);
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
@@ -78,6 +76,7 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {displayName: 'mike'}) => {
   const userDocRef = doc(db, 'users', userAuth.uid);
+  console.log(userDocRef);
 
   const userSnapshot = await getDoc(userDocRef);
 
@@ -115,15 +114,17 @@ export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth,
 
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
+  console.log(collectionRef)
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
+  console.log(querySnapshot);
   const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
     const {title, items} = docSnapshot.data();
     acc[title.toLowerCase()] = items;
     return acc;
   }, {});
-
+  console.log(categoryMap);
   return categoryMap;
 
 }

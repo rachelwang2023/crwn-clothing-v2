@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signInWithGooglePopUp, createUserDocumentFromAuth,signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopUp, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import '../sign-in-form /sign-in-form.styles.scss'
 import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
@@ -21,30 +21,26 @@ const SignInForm = () => {
 	const { email, password } = formFields;
 
 	const signInWithGoogle = async (event) => {
-		event.preventDefault();
-		const { user } = await signInWithGooglePopUp();
-		console.log(user);
-		await createUserDocumentFromAuth(user);
+		await signInWithGooglePopUp();
 	}
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		
+
 
 		try {
-			const user = await signInAuthUserWithEmailAndPassword(
+			await signInAuthUserWithEmailAndPassword(
 				email,
 				password
 			);
-			console.log(user);
-			
+
 			// setCurrentUser(user);
-	
+
 			resetFormFields();
 
 		} catch (error) {
 			console.log(error);
-			if (error.code === 'auth/invalid-credential'){
+			if (error.code === 'auth/invalid-credential') {
 				alert('incorrect password or email')
 			}
 
@@ -72,9 +68,9 @@ const SignInForm = () => {
 					type='password' required onChange={handleChange} name="password" value={password} />
 				<div className='buttons-container'>
 					<Button type='submit'>Sign In</Button>
-					<Button 
-						type='button' 
-						buttonType = {BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
+					<Button
+						type='button'
+						buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
 						Google sign in
 					</Button>
 				</div>
