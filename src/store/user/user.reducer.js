@@ -1,4 +1,5 @@
-import { USER_ACTION_TYPES } from "../../contexts/user.context";
+import  { USER_ACTION_TYPES } from '/Users/athenawang/Documents/GitHub/crwn-clothing-v2/src/store/user/user.types.js';
+
 const INITIL_STATE = {
   currentUser: null
 }

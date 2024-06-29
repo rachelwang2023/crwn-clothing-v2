@@ -1,5 +1,5 @@
 import { createAction } from "../../utils/reducer/reducer.utils";
-import { USER_ACTION_TYPES } from "../../contexts/user.context";
+import  { USER_ACTION_TYPES } from '/Users/athenawang/Documents/GitHub/crwn-clothing-v2/src/store/user/user.types.js';
 
 const setCurrentUser = (user) => createAction(
   USER_ACTION_TYPES.SET_CURRENT_USER, user

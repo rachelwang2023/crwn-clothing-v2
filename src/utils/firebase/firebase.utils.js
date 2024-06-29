@@ -67,7 +67,7 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(userCredential);
+    //(userCredential);
     return userCredential;
   } catch (error) {
     throw error;
@@ -114,17 +114,18 @@ export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth,
 
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
-  console.log(collectionRef)
+  //console.log(collectionRef)
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  console.log(querySnapshot);
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const {title, items} = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-  console.log(categoryMap);
-  return categoryMap;
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
+  // console.log(querySnapshot);
+  // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+  //   const {title, items} = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
+  // console.log(categoryMap);
+  // return categoryMap;
 
 }
